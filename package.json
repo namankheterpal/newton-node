@@ -1,23 +1,21 @@
 {
-  "name": "newton-node",
+  "name": "node-demo",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/namankheterpal/newton-node.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/namankheterpal/newton-node/issues"
-  },
-  "homepage": "https://github.com/namankheterpal/newton-node#readme",
-  "dependencies": {
+  "devDependencies": {
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.19.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.2"
   }
 }
