@@ -3,12 +3,14 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+var axios = require('axios');
 
 var app = express();
 
 var users= [];
 
 var jsonParser = bodyParser.json();
+var url ="http://www.mocky.io/v2/5e4d6ec32d00002c9ec0df79";
 
 var mock = {
     a:10
@@ -100,6 +102,21 @@ app.post('/signup',jsonParser,(req,res)=>{
     });
     
 })
+
+
+app.get('/search',jsonParser,(req, res)=>{
+    var id =  req.query.id;
+
+    axios.get(url)
+        .then((result)=>{
+            var data = result.data;
+            
+            var myObj = data.find(user=>user.id==id);
+
+            res.send(myObj);
+        });    
+})
+
 
 app.listen(5001);
 
