@@ -5,6 +5,8 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var axios = require('axios');
 
+var imageParser = require('express-fileupload');
+
 var app = express();
 
 var users= [];
@@ -20,6 +22,11 @@ var privateKey ='abc';
 
 
 app.use(express.static(path.join(__dirname,'public')));
+
+app.use((req,res,next)=>{
+    res.header("ACcess-Control-Allow-Origin","https://www.google.com");
+    next();
+})
 
 app.get('/users',(req,res)=>{
     res.json(users);
@@ -118,6 +125,41 @@ app.get('/search',jsonParser,(req, res)=>{
 })
 
 
-app.listen(5001);
 
+
+app.use(imageParser());
+
+
+app.post("/upload",(req,res)=>{
+
+    if(req.files && req.files.movieImg){
+        var file = req.files.movieImg,
+        filename = file.name;
+
+        file.mv("./upload/"+filename,(err)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+
+                if(req.body)
+                {
+                    users.push({
+                        user: req.body.name,
+                        profilePic: filename
+                    });
+                }
+                
+                res.send('succuss');
+
+            }
+        });
+    }
+    else{
+        res.send('error');
+    }
+})
+
+console.log('at 5001');
+app.listen(5004);
 
